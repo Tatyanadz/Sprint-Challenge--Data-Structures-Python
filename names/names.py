@@ -1,5 +1,30 @@
 import time
 
+
+class BSTNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    # Insert the given value into the tree
+    def insert(self, value):
+        if value < self.value:
+            # if no self.left exist, make self.left = value
+            if self.left is not None:
+                self.left.insert(value)
+            else:
+                self.left = BSTNode(value)
+        if value > self.value:
+            if self.right is not None:
+                self.right.insert(value)
+            else:
+                self.right = BSTNode(value)
+        if value == self.value:
+            duplicates[:-1] = value
+
+
+bst_names = BSTNode('test')
 start_time = time.time()
 
 f = open('names_1.txt', 'r')
@@ -14,9 +39,10 @@ duplicates = []  # Return the list of duplicates in this data structure
 
 # Replace the nested for loops below with your improvements
 for name_1 in names_1:
-    for name_2 in names_2:
-        if name_1 == name_2:
-            duplicates.append(name_1)
+    bst_names.insert(name_1)
+for name_2 in names_2:
+    bst_names.insert(name_2)
+
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
